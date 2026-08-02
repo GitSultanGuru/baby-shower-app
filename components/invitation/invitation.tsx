@@ -7,7 +7,6 @@ import { burstConfetti } from '@/lib/confetti'
 import { EVENT } from '@/lib/event'
 import { CornerDecor } from './corner-decor'
 import { GenderVote } from './gender-vote'
-import { RsvpForm } from './rsvp-form'
 
 /* ---------- small presentational helpers ---------- */
 
@@ -50,32 +49,8 @@ function Card({
 
 /* ---------- main component ---------- */
 
-const TIMELINE = [
-  {
-    time: '7:00 PM',
-    title: 'Welcome & Refreshments',
-    desc: 'Arrival, warm greetings & a sweet start',
-  },
-  {
-    time: '7:45 PM',
-    title: 'Seemantham Rituals',
-    desc: 'Blessings, bangles & flowers for the mother-to-be',
-  },
-  {
-    time: '8:30 PM',
-    title: 'Gender-Guess & Games',
-    desc: 'Cast your vote — boy or girl?',
-  },
-  {
-    time: '9:15 PM',
-    title: 'Dinner & Celebration',
-    desc: 'Feast, laughter & blessings',
-  },
-]
-
 export function Invitation() {
   const [opened, setOpened] = useState(false)
-  const [guess, setGuess] = useState('')
   const [activePanel, setActivePanel] = useState(0)
 
   const deckRef = useRef<HTMLElement>(null)
@@ -132,7 +107,7 @@ export function Invitation() {
     panels[i]?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  const PANEL_COUNT = 8
+  const PANEL_COUNT = 4
 
   return (
     <div className="relative min-h-[100dvh]">
@@ -171,11 +146,12 @@ export function Invitation() {
             <div className="relative z-10 font-script-alt text-2xl font-semibold text-green">
               With joyful hearts,
             </div>
-            <div className="relative z-10 mt-1.5 font-telugu text-5xl leading-none text-forest">
-              {EVENT.teluguTitle}
-            </div>
             <div className="relative z-10 mt-2 font-script text-5xl leading-none text-green">
               {EVENT.coupleNames}
+              <span className="align-super text-3xl">&apos;s</span>
+            </div>
+            <div className="relative z-10 mt-2 font-telugu text-5xl leading-none text-forest">
+              {EVENT.teluguTitle}
             </div>
             <div className="relative z-10 mt-1 font-serif text-[17px] italic text-green-ink">
               along with the{' '}
@@ -183,7 +159,7 @@ export function Invitation() {
             </div>
             <LeafLine />
             <div className="relative z-10 text-[11.5px] uppercase tracking-[0.22em] text-green">
-              warmly invite you to their baby shower
+              warmly invite you to her baby shower
             </div>
 
             <button
@@ -212,69 +188,22 @@ export function Invitation() {
             aria-label="Seemantham invitation"
             className="relative z-10 h-[100dvh] snap-y snap-mandatory overflow-y-auto scroll-smooth"
           >
-            {/* Panel 1 — Hero */}
-            <section
-              data-panel
-              className="relative flex min-h-[100dvh] snap-start snap-always items-center justify-center px-5 py-14"
-            >
-              <Card>
-                <CornerDecor corner="tl" />
-                <CornerDecor corner="br" />
-                <Kicker>You are warmly invited to a</Kicker>
-                <LeafLine />
-                <div className="relative z-10 text-center font-script-alt text-4xl font-bold leading-tight text-green">
-                  Baby Shower Celebration
-                </div>
-                <div className="relative z-10 mt-1 text-center font-telugu text-5xl text-forest">
-                  {EVENT.teluguTitle}
-                </div>
-                <div className="relative z-10 mt-1 text-center font-script text-5xl leading-none text-green">
-                  {EVENT.coupleNames}
-                </div>
-                <p className="relative z-10 mx-auto mt-3 max-w-sm text-center text-[15.5px] text-green-muted text-pretty">
-                  A joyful gathering to bless the mother-to-be and welcome their
-                  little bundle of joy with love, prayers &amp; sweetness.
-                </p>
-                <div className="relative z-10 mt-6 grid grid-cols-3 gap-3">
-                  {[
-                    { k: 'When', v: EVENT.dateShort, s: EVENT.day },
-                    { k: 'Time', v: '7:00', s: 'PM onwards' },
-                    { k: 'Where', v: EVENT.venueShort, s: EVENT.venueArea },
-                  ].map((f) => (
-                    <div
-                      key={f.k}
-                      className="rounded-xl border border-border bg-sage-lt px-2 py-3.5 text-center"
-                    >
-                      <div className="text-[10px] uppercase tracking-[0.16em] text-green">
-                        {f.k}
-                      </div>
-                      <div className="mt-1 font-serif text-xl font-bold text-forest">
-                        {f.v}
-                        <small className="block font-sans text-[11px] font-normal tracking-wide text-green-muted">
-                          {f.s}
-                        </small>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-              <div className="scroll-cue absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 text-[11px] uppercase tracking-[0.16em] text-panel/85">
-                <span>Scroll</span>
-                <span aria-hidden="true">↓</span>
-              </div>
-            </section>
-
-            {/* Panel 2 — Mother-to-be */}
+            {/* Panel 1 — Mother-to-be & tradition */}
             <section
               data-panel
               className="relative flex min-h-[100dvh] snap-start snap-always items-center justify-center px-5 py-14"
             >
               <Card className="bg-sage text-center">
-                <Kicker>Blessings for the</Kicker>
-                <div className="relative z-10 text-center font-script-alt text-4xl font-bold leading-tight text-forest">
-                  Mother-to-be
+                <CornerDecor corner="tl" />
+                <CornerDecor corner="br" />
+                <Kicker>Celebrating</Kicker>
+                <div className="relative z-10 mt-1 text-center font-script text-5xl leading-none text-forest">
+                  {EVENT.coupleNames}
                 </div>
-                <div className="relative z-10 mx-auto mt-4 w-[min(70%,280px)]">
+                <div className="relative z-10 mt-1.5 text-center font-serif text-lg italic text-green">
+                  our mother-to-be
+                </div>
+                <div className="relative z-10 mx-auto mt-3 w-[min(52%,200px)]">
                   <Image
                     src="/images/mom-illustration-alpha.png"
                     alt="Illustration of the expectant mother in a green saree"
@@ -283,46 +212,23 @@ export function Invitation() {
                     className="h-auto w-full drop-shadow-[0_18px_24px_rgba(27,51,30,0.28)]"
                   />
                 </div>
-                <p className="relative z-10 mt-4 font-serif text-lg italic text-green-ink text-pretty">
-                  &ldquo;Warmly inviting you to celebrate the upcoming arrival of
-                  our little bundle of joy.&rdquo;
-                </p>
-              </Card>
-            </section>
-
-            {/* Panel 3 — Meaning */}
-            <section
-              data-panel
-              className="relative flex min-h-[100dvh] snap-start snap-always items-center justify-center px-5 py-14"
-            >
-              <Card>
-                <CornerDecor corner="tl" />
-                <Kicker>The Ceremony</Kicker>
-                <LeafLine />
-                <h2 className="relative z-10 text-center font-serif text-3xl font-bold text-forest">
-                  A cherished tradition
-                  <span className="mt-0.5 block font-telugu text-2xl font-normal text-green">
-                    {EVENT.teluguTitle}
-                  </span>
-                </h2>
-                <p className="relative z-10 mt-2.5 text-center font-serif text-lg italic text-green">
+                <p className="relative z-10 mt-3 font-serif text-lg italic text-green text-pretty">
                   &ldquo;Bless the journey, welcome the joy.&rdquo;
                 </p>
-                <p className="relative z-10 mt-3 text-center text-[15.5px] text-green-muted text-pretty">
-                  Seemantham is a heartfelt South-Indian ritual held to pray for
-                  the well-being of the expecting mother and her baby. Family
-                  &amp; friends gather to shower blessings, adorn the
-                  mother-to-be with bangles and flowers, and celebrate the new
-                  life on its way.
-                </p>
-                <p className="relative z-10 mt-3 text-center text-[15.5px] text-green-muted text-pretty">
-                  Your presence and blessings will make this moment truly
-                  complete.
+                <p className="relative z-10 mt-2.5 text-[14.5px] leading-relaxed text-green-ink text-pretty">
+                  Seemantham is a cherished South-Indian ritual of prayer for
+                  the mother and her baby — a gathering of family and friends
+                  to offer blessings, adorn her with bangles and flowers, and
+                  welcome the little one on the way.
                 </p>
               </Card>
+              <div className="scroll-cue absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 text-[11px] uppercase tracking-[0.16em] text-panel/85">
+                <span>Scroll</span>
+                <span aria-hidden="true">↓</span>
+              </div>
             </section>
 
-            {/* Panel 4 — Details */}
+            {/* Panel 2 — Details */}
             <section
               data-panel
               className="relative flex min-h-[100dvh] snap-start snap-always items-center justify-center px-5 py-14"
@@ -368,87 +274,26 @@ export function Invitation() {
               </Card>
             </section>
 
-            {/* Panel 5 — Timeline */}
+            {/* Panel 3 — Fun guess */}
             <section
               data-panel
-              className="relative flex min-h-[100dvh] snap-start snap-always items-center justify-center px-5 py-14"
+              className="relative flex min-h-[100dvh] snap-start snap-always items-center justify-center px-5 py-10"
             >
-              <Card>
-                <Kicker>The Evening</Kicker>
-                <LeafLine />
-                <h2 className="relative z-10 text-center font-serif text-3xl font-bold text-forest">
-                  Flow of the Celebration
-                </h2>
-                <div className="relative z-10 mt-4">
-                  {TIMELINE.map((item, i) => (
-                    <div key={item.time} className="flex gap-4 py-3">
-                      <div className="w-[74px] shrink-0 text-right font-serif text-[17px] font-bold text-green">
-                        {item.time}
-                      </div>
-                      <div className="relative flex-none">
-                        <span className="absolute left-[3px] top-1.5 h-2 w-2 rounded-full bg-gold shadow-[0_0_0_4px_var(--color-sage-lt)]" />
-                        {i < TIMELINE.length - 1 && (
-                          <span className="absolute left-[6.5px] top-4 h-[calc(100%+8px)] w-px bg-border" />
-                        )}
-                        <span className="block w-3.5" />
-                      </div>
-                      <div className="pb-1">
-                        <div className="font-serif text-lg font-semibold text-forest">
-                          {item.title}
-                        </div>
-                        <div className="text-[12.5px] text-green-muted">
-                          {item.desc}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            </section>
-
-            {/* Panel 6 — Gender vote */}
-            <section
-              data-panel
-              className="relative flex min-h-[100dvh] snap-start snap-always items-center justify-center px-5 py-14"
-            >
-              <Card>
+              <Card className="py-7">
                 <Kicker>Just for fun</Kicker>
                 <LeafLine />
                 <h2 className="relative z-10 text-center font-serif text-3xl font-bold text-forest">
-                  Boy or Girl?
+                  Guess &amp; name the little one
                 </h2>
-                <p className="relative z-10 mt-2 text-center text-[15.5px] text-green-muted text-pretty">
-                  What does your heart say? Cast your guess and see how everyone
-                  else is voting.
+                <p className="relative z-10 mt-2 text-center text-[14.5px] text-green-muted text-pretty">
+                  Share your heart&apos;s guess, a name you love, and what it
+                  means.
                 </p>
-                <GenderVote
-                  onVote={(choice) =>
-                    setGuess(choice === 'girl' ? 'Team Girl' : 'Team Boy')
-                  }
-                />
+                <GenderVote />
               </Card>
             </section>
 
-            {/* Panel 7 — RSVP */}
-            <section
-              data-panel
-              className="relative flex min-h-[100dvh] snap-start snap-always items-center justify-center px-5 py-14"
-            >
-              <Card>
-                <Kicker>Kindly Respond</Kicker>
-                <LeafLine />
-                <h2 className="relative z-10 text-center font-serif text-3xl font-bold text-forest">
-                  RSVP
-                </h2>
-                <p className="relative z-10 mt-2 text-center text-[15.5px] text-green-muted text-pretty">
-                  Let us know if you can join &amp; how many are coming. Your
-                  reply opens WhatsApp with a ready message.
-                </p>
-                <RsvpForm guess={guess} setGuess={setGuess} />
-              </Card>
-            </section>
-
-            {/* Panel 8 — Blessing */}
+            {/* Panel 4 — Blessing */}
             <section
               data-panel
               className="relative flex min-h-[100dvh] snap-start snap-always items-center justify-center px-5 py-14"
@@ -478,7 +323,7 @@ export function Invitation() {
                   <small className="mb-0.5 block font-sans text-[11px] uppercase tracking-[0.2em] text-green">
                     With love,
                   </small>
-                  {EVENT.coupleNames}
+                  Monica and Satish
                 </div>
               </Card>
             </section>

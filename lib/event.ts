@@ -2,7 +2,7 @@
 export const RSVP_WHATSAPP_NUMBER = '918897222044' // +91 8897222044
 
 export const EVENT = {
-  coupleNames: 'Monica & Satish Reddy',
+  coupleNames: 'Monica',
   family: 'Uchala Family',
   teluguTitle: 'సీమంతం',
   dateShort: 'Aug 14',

@@ -45,9 +45,9 @@ const tiroTelugu = Tiro_Telugu({
   display: 'swap',
 })
 
-const SITE_TITLE = 'Seemantham · Monica & Satish Reddy'
+const SITE_TITLE = "Monica's Seemantham"
 const SITE_DESC =
-  'With joyful hearts, Monica & Satish Reddy along with the Uchala family warmly invite you to their Baby Shower — Seemantham on Friday, Aug 14th, 7:00 PM at ANTERA Banquet Hall, Miyapur. Tap to open, guess boy or girl, and RSVP.'
+  "With joyful hearts, Monica along with the Uchala family warmly invites you to her Baby Shower — Seemantham on Friday, Aug 14th, 7:00 PM at ANTERA Banquet Hall, Miyapur. Tap to open, guess boy or girl, and RSVP."
 
 export const metadata: Metadata = {
   title: SITE_TITLE,
