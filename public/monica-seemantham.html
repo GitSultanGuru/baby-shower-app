@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Seemantham · Monica &amp; Satish Reddy</title>
+<meta name="description" content="With joyful hearts, Monica & Satish Reddy along with the Uchala family warmly invite you to their Baby Shower — Seemantham on Friday, Aug 14th, 7:00 PM at ANTERA Banquet Hall, Miyapur." />
+<meta name="theme-color" content="#294a2c" />
+
+<!-- Social / WhatsApp link preview -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Seemantham · Monica & Satish Reddy" />
+<meta property="og:description" content="Join our Baby Shower celebration — Friday, Aug 14th, 7:00 PM at ANTERA Banquet Hall, Miyapur. Tap to open your invitation, guess the gender & RSVP." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Dancing+Script:wght@500;600;700&family=Great+Vibes&family=Jost:wght@300;400;500;600&family=Tiro+Telugu&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --forest:#294a2c;         /* deep frame green */
+    --forest-deep:#1b331e;    /* darkest green */
+    --sage:#cfe0c9;           /* illustration sage panel */
+    --sage-lt:#dfeada;        /* light sage */
+    --panel:#f6f2e4;          /* warm cream card */
+    --panel-2:#fbf8ee;
+    --green:#3f6b45;          /* medium green */
+    --green-ink:#22381f;      /* text ink */
+    --gold:#b08a37;           /* muted gold */
+    --gold-lt:#d8b869;        /* bright gold */
+    --pink:#e3b0a4;           /* girl */
+    --pink-lt:#f6e5e0;
+    --blue:#9fc0cc;           /* boy */
+    --blue-lt:#e2eef1;
+    --line:rgba(34,56,31,.16);
+    --shadow:0 22px 60px -24px rgba(15,32,18,.75);
+    --font-serif:"Cormorant Garamond", Georgia, serif;
+    --font-sans:"Jost", system-ui, sans-serif;
+    --font-script:"Great Vibes", cursive;
+    --font-script2:"Dancing Script", cursive;
+    --font-telugu:"Tiro Telugu", serif;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  html,body{ height:100%; }
+  body{
+    font-family:var(--font-sans);
+    color:var(--green-ink);
+    background:
+      radial-gradient(1100px 700px at 50% -8%, #34592f, transparent 60%),
+      linear-gradient(180deg, var(--forest), var(--forest-deep));
+    line-height:1.6;
+    overflow:hidden; /* cover locks scroll until opened */
+  }
+  body.opened{ overflow:visible; }
+
+  /* gold viewport frame — echoes the printed card border */
+  .frame{
+    position:fixed; inset:10px; z-index:45; pointer-events:none;
+    border:1.5px solid rgba(216,184,105,.55); border-radius:16px;
+    box-shadow:inset 0 0 0 6px rgba(41,74,44,.35);
+  }
+
+  /* ====================== COVER ====================== */
+  .cover{
+    position:fixed; inset:0; z-index:50;
+    display:flex; align-items:center; justify-content:center; padding:22px;
+    background:
+      radial-gradient(800px 560px at 50% 12%, #35592f, transparent 62%),
+      linear-gradient(160deg, #2f5231, var(--forest-deep));
+    transition:opacity .9s ease, transform 1.1s cubic-bezier(.7,0,.2,1), visibility .9s;
+  }
+  .cover.hide{ opacity:0; transform:translateY(-6%) scale(1.04); visibility:hidden; }
+
+  .cover-card{
+    position:relative; width:min(92vw,430px); padding:40px 30px 34px; text-align:center;
+    background:linear-gradient(180deg, var(--panel-2), var(--panel));
+    border-radius:20px; overflow:hidden;
+    box-shadow:var(--shadow);
+    outline:1px solid rgba(176,138,55,.5); outline-offset:8px;
+    animation:rise 1s ease both;
+  }
+  @keyframes rise{ from{opacity:0; transform:translateY(24px)} to{opacity:1; transform:none} }
+
+  .corner{ position:absolute; width:150px; opacity:.5; mix-blend-mode:multiply; pointer-events:none; }
+  .corner.tl{ top:-6px; left:-6px; }
+  .corner.br{ bottom:-6px; right:-6px; transform:rotate(180deg); }
+
+  .feather{ width:64px; height:auto; margin:0 auto 4px; display:block; mix-blend-mode:multiply; position:relative; z-index:1; }
+  .cover .joyful{ font-family:var(--font-script2); font-weight:600; font-size:22px; color:var(--green); position:relative; z-index:1; }
+  .cover .telugu{
+    font-family:var(--font-telugu); font-size:46px; line-height:1.1; color:var(--forest);
+    margin:6px 0 2px; position:relative; z-index:1;
+  }
+  .cover .names{
+    font-family:var(--font-script); font-size:46px; line-height:1.05; color:var(--green);
+    margin:6px 0 2px; position:relative; z-index:1;
+  }
+  .cover .withfam{ font-family:var(--font-serif); font-style:italic; font-size:17px; color:var(--green-ink); position:relative; z-index:1; }
+  .cover .withfam b{ font-weight:700; font-style:normal; }
+  .divider{ display:flex; align-items:center; gap:10px; justify-content:center; margin:16px auto 12px; color:var(--gold); position:relative; z-index:1; }
+  .divider::before,.divider::after{ content:""; height:1px; width:52px; background:linear-gradient(90deg,transparent,var(--gold)); }
+  .divider::after{ background:linear-gradient(90deg,var(--gold),transparent); }
+  .cover .sub{ font-size:11.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--green); position:relative; z-index:1; }
+
+  .open-btn{
+    margin-top:22px; display:inline-flex; align-items:center; gap:10px; position:relative; z-index:1;
+    font-family:var(--font-sans); font-weight:500; letter-spacing:.14em; text-transform:uppercase; font-size:12.5px;
+    color:var(--panel); background:linear-gradient(180deg,var(--green),var(--forest));
+    border:none; border-radius:999px; padding:15px 32px; cursor:pointer;
+    box-shadow:0 16px 28px -12px rgba(27,51,30,.9); transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .open-btn:hover{ transform:translateY(-2px); box-shadow:0 22px 34px -12px rgba(27,51,30,1); }
+  .open-btn:active{ transform:translateY(0); }
+  .open-btn .dot{ width:7px; height:7px; border-radius:50%; background:var(--gold-lt); box-shadow:0 0 0 4px rgba(216,184,105,.3); }
+  .tap-hint{ margin-top:13px; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); opacity:.7; position:relative; z-index:1; }
+
+  /* ====================== SCROLL DECK ====================== */
+  .deck{
+    position:relative; z-index:1;
+    height:100vh; overflow-y:auto; scroll-snap-type:y mandatory;
+    scroll-behavior:smooth; -webkit-overflow-scrolling:touch;
+  }
+  .panel{
+    min-height:100vh; scroll-snap-align:start; scroll-snap-stop:always;
+    display:flex; align-items:center; justify-content:center;
+    padding:58px 20px; position:relative;
+  }
+  .card{
+    position:relative; overflow:hidden;
+    width:min(94vw,520px);
+    background:linear-gradient(180deg, var(--panel-2), var(--panel));
+    border-radius:20px; padding:34px 26px;
+    box-shadow:var(--shadow); outline:1px solid rgba(176,138,55,.4); outline-offset:6px;
+  }
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s ease, transform .8s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  .kicker{ text-align:center; text-transform:uppercase; letter-spacing:.32em; font-size:10.5px; color:var(--green); font-weight:500; position:relative; z-index:1; }
+  .leafline{ display:flex; align-items:center; justify-content:center; gap:10px; color:var(--gold); margin:10px 0 14px; font-size:14px; position:relative; z-index:1; }
+  .leafline::before,.leafline::after{ content:""; height:1px; width:46px; background:linear-gradient(90deg,transparent,var(--gold)); }
+  .leafline::after{ background:linear-gradient(90deg,var(--gold),transparent); }
+
+  h2{ font-family:var(--font-serif); font-weight:700; font-size:32px; text-align:center; color:var(--forest); position:relative; z-index:1; }
+  h2 .tel{ font-family:var(--font-telugu); font-size:26px; display:block; color:var(--green); margin-top:2px; font-weight:400; }
+  .script-h{ font-family:var(--font-script2); font-weight:700; font-size:38px; text-align:center; color:var(--green); line-height:1.1; position:relative; z-index:1; }
+  .lede{ text-align:center; font-family:var(--font-serif); font-style:italic; font-size:19px; color:var(--green); margin-top:10px; position:relative; z-index:1; }
+  p.body{ text-align:center; color:#4a5a4c; font-size:15.5px; margin-top:12px; position:relative; z-index:1; }
+
+  /* Hero panel */
+  .hero .telugu{ font-family:var(--font-telugu); font-size:44px; color:var(--forest); text-align:center; position:relative; z-index:1; }
+  .hero .names{ font-family:var(--font-script); font-size:44px; text-align:center; color:var(--green); line-height:1.05; margin-top:2px; position:relative; z-index:1; }
+
+  /* quick facts */
+  .facts{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:22px; position:relative; z-index:1; }
+  .fact{ background:var(--sage-lt); border:1px solid var(--line); border-radius:14px; padding:14px 8px; text-align:center; }
+  .fact .k{ font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--green); }
+  .fact .v{ font-family:var(--font-serif); font-size:20px; color:var(--forest); font-weight:700; margin-top:4px; }
+  .fact .v small{ display:block; font-family:var(--font-sans); font-size:11px; font-weight:400; color:#5b6b5e; letter-spacing:.05em; }
+
+  /* mother-to-be panel */
+  .mom-card{ background:var(--sage); text-align:center; }
+  .mom-card .kicker,.mom-card h2,.mom-card .script-h{ color:var(--forest); }
+  .mom-card .kicker{ color:var(--green); }
+  .mom-img{ width:min(78%,300px); height:auto; margin:6px auto 0; display:block; mix-blend-mode:multiply; }
+  .mom-note{ font-family:var(--font-serif); font-style:italic; font-size:18px; color:var(--green-ink); margin-top:4px; position:relative; z-index:1; }
+
+  /* detail rows */
+  .row{ display:flex; gap:14px; align-items:flex-start; padding:15px 4px; border-bottom:1px dashed var(--line); position:relative; z-index:1; }
+  .row:last-child{ border-bottom:none; }
+  .ic{ flex:0 0 40px; height:40px; border-radius:12px; display:grid; place-items:center; background:var(--sage); color:var(--forest); }
+  .ic svg{ width:20px; height:20px; }
+  .row .lbl{ font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--green); }
+  .row .val{ font-family:var(--font-serif); font-size:20px; font-weight:600; color:var(--forest); line-height:1.3; }
+  .row .val span{ display:block; font-family:var(--font-sans); font-weight:400; font-size:12.5px; color:#5b6b5e; }
+  .map-btn{
+    display:inline-flex; align-items:center; gap:8px; margin-top:10px;
+    font-family:var(--font-sans); font-size:12px; font-weight:500; letter-spacing:.06em;
+    color:var(--panel); text-decoration:none; background:linear-gradient(180deg,var(--green),var(--forest));
+    border-radius:999px; padding:9px 15px; box-shadow:0 10px 18px -10px rgba(27,51,30,.9);
+  }
+  .map-btn:hover{ transform:translateY(-1px); }
+
+  /* timeline */
+  .tl{ margin-top:12px; position:relative; z-index:1; }
+  .tl-item{ display:flex; gap:16px; padding:12px 0; }
+  .tl-time{ flex:0 0 84px; text-align:right; font-family:var(--font-serif); font-weight:700; font-size:17px; color:var(--green); }
+  .tl-dot{ position:relative; flex:0 0 14px; }
+  .tl-dot::before{ content:""; position:absolute; top:6px; left:3px; width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 4px var(--sage-lt); }
+  .tl-dot::after{ content:""; position:absolute; top:16px; left:6.5px; bottom:-18px; width:1px; background:var(--line); }
+  .tl-item:last-child .tl-dot::after{ display:none; }
+  .tl-txt .t{ font-family:var(--font-serif); font-size:18px; font-weight:600; color:var(--forest); }
+  .tl-txt .d{ font-size:12.5px; color:#5b6b5e; }
+
+  /* vote */
+  .vote-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:20px; position:relative; z-index:1; }
+  .vote-btn{
+    border:1.5px solid var(--line); border-radius:18px; padding:20px 10px; cursor:pointer;
+    background:var(--panel-2); text-align:center; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    font-family:var(--font-sans);
+  }
+  .vote-btn:hover{ transform:translateY(-3px); box-shadow:0 14px 24px -14px rgba(27,51,30,.5); }
+  .vote-btn .emoji{ font-size:34px; }
+  .vote-btn .team{ font-family:var(--font-serif); font-size:20px; font-weight:700; margin-top:6px; color:var(--forest); }
+  #voteGirl.sel{ border-color:#d99f90; background:linear-gradient(180deg,var(--pink-lt),var(--pink)); }
+  #voteBoy.sel{ border-color:#8fb4c1; background:linear-gradient(180deg,var(--blue-lt),var(--blue)); }
+
+  .bar-wrap{ margin-top:22px; position:relative; z-index:1; }
+  .bar{ height:26px; border-radius:999px; overflow:hidden; display:flex; border:1px solid var(--line); background:var(--sage-lt); }
+  .bar .g{ background:linear-gradient(90deg,var(--pink-lt),var(--pink)); transition:width .7s ease; }
+  .bar .b{ background:linear-gradient(90deg,var(--blue),var(--blue-lt)); transition:width .7s ease; }
+  .bar-legend{ display:flex; justify-content:space-between; margin-top:8px; font-size:12.5px; color:var(--green); }
+  .bar-legend b{ color:var(--forest); }
+  .tally-note{ text-align:center; font-size:12px; color:#6c7a6e; margin-top:8px; }
+
+  /* RSVP form */
+  .field{ margin-top:16px; position:relative; z-index:1; }
+  .field label{ display:block; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); margin-bottom:7px; }
+  .field input[type=text], .field textarea{
+    width:100%; font-family:var(--font-sans); font-size:15px; color:var(--forest);
+    background:var(--panel-2); border:1.5px solid var(--line); border-radius:12px; padding:13px 14px; outline:none;
+  }
+  .field input[type=text]:focus, .field textarea:focus{ border-color:var(--green); }
+  .field textarea{ resize:vertical; min-height:74px; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:9px; }
+  .chip{
+    font-family:var(--font-sans); font-size:13px; color:var(--green);
+    background:var(--panel-2); border:1.5px solid var(--line); border-radius:999px;
+    padding:9px 15px; cursor:pointer; transition:all .18s ease;
+  }
+  .chip:hover{ border-color:var(--green); }
+  .chip.sel{ background:linear-gradient(180deg,var(--green),var(--forest)); color:var(--panel); border-color:var(--forest); }
+
+  .counter{ display:flex; align-items:center; gap:14px; }
+  .counter button{
+    width:44px; height:44px; border-radius:12px; border:1.5px solid var(--line); background:var(--sage-lt);
+    font-size:22px; color:var(--green); cursor:pointer; line-height:1;
+  }
+  .counter button:hover{ background:var(--sage); }
+  .counter input{
+    width:64px; text-align:center; font-family:var(--font-serif); font-size:24px; font-weight:700; color:var(--forest);
+    background:transparent; border:none; outline:none;
+  }
+  .send-btn{
+    width:100%; margin-top:22px; font-family:var(--font-sans); font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+    font-size:13px; color:var(--panel); background:linear-gradient(180deg,var(--green),var(--forest));
+    border:none; border-radius:14px; padding:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:10px;
+    box-shadow:0 16px 28px -14px rgba(27,51,30,.9); transition:transform .2s ease;
+  }
+  .send-btn:hover{ transform:translateY(-2px); }
+  .send-btn svg{ width:18px; height:18px; }
+  .privacy{ text-align:center; font-size:11px; color:#7a887c; margin-top:12px; position:relative; z-index:1; }
+
+  .blessing{ text-align:center; }
+  .blessing .verse{ font-family:var(--font-serif); font-style:italic; font-size:21px; color:var(--green); margin-top:8px; }
+  .blessing .with-love{ font-family:var(--font-script); font-size:36px; color:var(--forest); margin-top:18px; line-height:1.1; }
+  .blessing .with-love small{ display:block; font-family:var(--font-sans); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--green); margin-bottom:2px; }
+
+  /* progress dots */
+  .dots{ position:fixed; right:16px; top:50%; transform:translateY(-50%); z-index:46; display:flex; flex-direction:column; gap:10px; }
+  .dots .d{ width:8px; height:8px; padding:0; border:none; border-radius:50%; background:rgba(246,242,228,.35); transition:all .3s ease; cursor:pointer; }
+  .dots .d.active{ background:var(--gold-lt); transform:scale(1.6); }
+  .scroll-cue{ position:absolute; bottom:20px; left:50%; transform:translateX(-50%); color:var(--panel); font-size:11px; letter-spacing:.16em; text-transform:uppercase; opacity:.85; display:flex; flex-direction:column; align-items:center; gap:4px; animation:bob 1.8s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{transform:translate(-50%,0)} 50%{transform:translate(-50%,6px)} }
+
+  /* confetti / petals */
+  #confetti{ position:fixed; inset:0; pointer-events:none; z-index:60; overflow:hidden; }
+  .petal{ position:absolute; top:-24px; width:12px; height:12px; border-radius:0 100% 0 100%; opacity:.9; will-change:transform; animation:fall linear forwards; }
+  @keyframes fall{
+    0%{ transform:translateY(-10vh) rotate(0deg); opacity:1; }
+    100%{ transform:translateY(110vh) rotate(540deg); opacity:.15; }
+  }
+
+  @media (max-width:420px){
+    .cover .telugu{ font-size:40px; } .cover .names{ font-size:40px; }
+    h2{ font-size:27px; } .script-h{ font-size:32px; } .facts{ gap:8px; }
+    .frame{ inset:7px; } .dots{ right:9px; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{ animation:none !important; transition:none !important; }
+    .reveal{ opacity:1; transform:none; }
+    #confetti{ display:none; }
+  }
+</style>
+</head>
+<body>
+<div class="frame" aria-hidden="true"></div>
+<div id="confetti" aria-hidden="true"></div>
+
+<!-- ============ COVER ============ -->
+<div class="cover" id="cover" role="dialog" aria-label="Open your invitation">
+  <div class="cover-card">
+    <img class="corner tl" src="/images/floral-corner.png" alt="" aria-hidden="true" />
+    <img class="corner br" src="/images/floral-corner.png" alt="" aria-hidden="true" />
+    <img class="feather" src="/images/peacock-feather.png" alt="Peacock feather" />
+    <div class="joyful">With joyful hearts,</div>
+    <div class="telugu">సీమంతం</div>
+    <div class="names">Monica &amp; Satish Reddy</div>
+    <div class="withfam">along with the <b>Uchala Family</b></div>
+    <div class="divider" aria-hidden="true">&#10086;</div>
+    <div class="sub">warmly invite you to their baby shower</div>
+    <button class="open-btn" id="openBtn">
+      <span class="dot" aria-hidden="true"></span> Open Invitation
+    </button>
+    <div class="tap-hint">Tap to unfold &amp; scroll through</div>
+  </div>
+</div>
+
+<!-- ============ SCROLL DECK ============ -->
+<main class="deck" id="deck" aria-label="Seemantham invitation">
+
+  <!-- Panel 1: Hero -->
+  <section class="panel hero">
+    <div class="card reveal">
+      <img class="corner tl" src="/images/floral-corner.png" alt="" aria-hidden="true" />
+      <img class="corner br" src="/images/floral-corner.png" alt="" aria-hidden="true" />
+      <div class="kicker">You are warmly invited to a</div>
+      <div class="leafline" aria-hidden="true">&#10047;</div>
+      <div class="script-h">Baby Shower Celebration</div>
+      <div class="telugu">సీమంతం</div>
+      <div class="names">Monica &amp; Satish Reddy</div>
+      <p class="body">A joyful gathering to bless the mother-to-be and welcome their little bundle of joy with love, prayers &amp; sweetness.</p>
+      <div class="facts">
+        <div class="fact"><div class="k">When</div><div class="v">Aug 14<small>Friday</small></div></div>
+        <div class="fact"><div class="k">Time</div><div class="v">7:00<small>PM onwards</small></div></div>
+        <div class="fact"><div class="k">Where</div><div class="v">ANTERA<small>Miyapur</small></div></div>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><span>&#8595;</span></div>
+  </section>
+
+  <!-- Panel 2: Mother-to-be -->
+  <section class="panel">
+    <div class="card mom-card reveal">
+      <div class="kicker">Blessings for the</div>
+      <div class="script-h">Mother-to-be</div>
+      <img class="mom-img" src="/images/mom-illustration.png" alt="Illustration of the expectant mother in a green saree" />
+      <p class="mom-note">"Warmly inviting you to celebrate the upcoming arrival of our little bundle of joy."</p>
+    </div>
+  </section>
+
+  <!-- Panel 3: Meaning -->
+  <section class="panel">
+    <div class="card reveal">
+      <img class="corner tl" src="/images/floral-corner.png" alt="" aria-hidden="true" />
+      <div class="kicker">The Ceremony</div>
+      <div class="leafline" aria-hidden="true">&#10047;</div>
+      <h2>A cherished tradition<span class="tel">సీమంతం</span></h2>
+      <p class="lede">"Bless the journey, welcome the joy."</p>
+      <p class="body">Seemantham is a heartfelt South-Indian ritual held to pray for the well-being of the expecting mother and her baby. Family &amp; friends gather to shower blessings, adorn the mother-to-be with bangles and flowers, and celebrate the new life on its way.</p>
+      <p class="body">Your presence and blessings will make this moment truly complete.</p>
+    </div>
+  </section>
+
+  <!-- Panel 4: Details -->
+  <section class="panel">
+    <div class="card reveal">
+      <img class="corner br" src="/images/floral-corner.png" alt="" aria-hidden="true" />
+      <div class="kicker">Save the Date</div>
+      <div class="leafline" aria-hidden="true">&#10047;</div>
+      <h2>Ceremony Details</h2>
+      <div style="margin-top:16px; position:relative; z-index:1;">
+        <div class="row">
+          <div class="ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg>
+          </div>
+          <div>
+            <div class="lbl">Date</div>
+            <div class="val">Friday, 14th August 2026<span>Evening ceremony</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <div>
+            <div class="lbl">Time</div>
+            <div class="val">7:00 PM onwards<span>Muhurtham followed by dinner</span></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="ic" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          </div>
+          <div>
+            <div class="lbl">Venue</div>
+            <div class="val">ANTERA Banquet Hall<span>Opp. South India Shopping Mall, Madeenaguda,<br/>Hyderabad, Telangana 500049</span></div>
+            <a class="map-btn" href="https://maps.app.goo.gl/TmryTuKWPnE8BVhu6" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:15px;height:15px"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+              Open in Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Panel 5: Timeline -->
+  <section class="panel">
+    <div class="card reveal">
+      <div class="kicker">The Evening</div>
+      <div class="leafline" aria-hidden="true">&#10047;</div>
+      <h2>Flow of the Celebration</h2>
+      <div class="tl" style="margin-top:16px">
+        <div class="tl-item"><div class="tl-time">7:00 PM</div><div class="tl-dot"></div><div class="tl-txt"><div class="t">Welcome &amp; Refreshments</div><div class="d">Arrival, warm greetings &amp; a sweet start</div></div></div>
+        <div class="tl-item"><div class="tl-time">7:45 PM</div><div class="tl-dot"></div><div class="tl-txt"><div class="t">Seemantham Rituals</div><div class="d">Blessings, bangles &amp; flowers for the mother-to-be</div></div></div>
+        <div class="tl-item"><div class="tl-time">8:30 PM</div><div class="tl-dot"></div><div class="tl-txt"><div class="t">Gender-Guess &amp; Games</div><div class="d">Cast your vote — boy or girl?</div></div></div>
+        <div class="tl-item"><div class="tl-time">9:15 PM</div><div class="tl-dot"></div><div class="tl-txt"><div class="t">Dinner &amp; Celebration</div><div class="d">Feast, laughter &amp; blessings</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Panel 6: Gender vote -->
+  <section class="panel">
+    <div class="card reveal">
+      <div class="kicker">Just for fun</div>
+      <div class="leafline" aria-hidden="true">&#10047;</div>
+      <h2>Boy or Girl?</h2>
+      <p class="body">What does your heart say? Cast your guess and see how everyone else is voting.</p>
+      <div class="vote-grid">
+        <button class="vote-btn" id="voteGirl" aria-pressed="false">
+          <div class="emoji" aria-hidden="true">&#128118;</div>
+          <div class="team">Team Girl</div>
+        </button>
+        <button class="vote-btn" id="voteBoy" aria-pressed="false">
+          <div class="emoji" aria-hidden="true">&#128118;</div>
+          <div class="team">Team Boy</div>
+        </button>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar" aria-hidden="true">
+          <div class="g" id="barGirl" style="width:50%"></div>
+          <div class="b" id="barBoy" style="width:50%"></div>
+        </div>
+        <div class="bar-legend">
+          <span>&#128118; Girl · <b id="pctGirl">50%</b></span>
+          <span><b id="pctBoy">50%</b> · Boy &#128118;</span>
+        </div>
+        <div class="tally-note" id="tallyNote">Be the first to guess!</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Panel 7: RSVP -->
+  <section class="panel">
+    <div class="card reveal">
+      <div class="kicker">Kindly Respond</div>
+      <div class="leafline" aria-hidden="true">&#10047;</div>
+      <h2>RSVP</h2>
+      <p class="body">Let us know if you can join &amp; how many are coming. Your reply opens WhatsApp with a ready message.</p>
+
+      <div class="field">
+        <label for="guestName">Your Name</label>
+        <input type="text" id="guestName" placeholder="e.g. Priya &amp; family" autocomplete="name" />
+      </div>
+
+      <div class="field">
+        <label>Will you attend?</label>
+        <div class="chips" id="attendChips">
+          <button type="button" class="chip sel" data-val="Yes, joyfully!">Yes, joyfully!</button>
+          <button type="button" class="chip" data-val="Trying my best">Trying my best</button>
+          <button type="button" class="chip" data-val="Can't make it">Can't make it</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>How many guests (including you)?</label>
+        <div class="counter">
+          <button type="button" id="minus" aria-label="Decrease guests">&#8722;</button>
+          <input type="text" id="guestCount" value="1" inputmode="numeric" readonly aria-label="Guest count" />
+          <button type="button" id="plus" aria-label="Increase guests">&#43;</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Your guess</label>
+        <div class="chips" id="guessChips">
+          <button type="button" class="chip" data-val="Team Girl">Team Girl &#128118;</button>
+          <button type="button" class="chip" data-val="Team Boy">Team Boy &#128118;</button>
+          <button type="button" class="chip" data-val="It's a surprise!">Surprise!</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="msg">A note / blessing (optional)</label>
+        <textarea id="msg" placeholder="Sending love and blessings…"></textarea>
+      </div>
+
+      <button class="send-btn" id="sendBtn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.599 5.35l-.999 3.648 3.9-.297zM17.472 14.382c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.767.967-.94 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        RSVP on WhatsApp
+      </button>
+      <p class="privacy">Opens WhatsApp with a pre-filled message. Your guess is saved on your device only.</p>
+    </div>
+  </section>
+
+  <!-- Panel 8: Blessing -->
+  <section class="panel">
+    <div class="card reveal blessing">
+      <img class="corner tl" src="/images/floral-corner.png" alt="" aria-hidden="true" />
+      <img class="corner br" src="/images/floral-corner.png" alt="" aria-hidden="true" />
+      <img class="feather" src="/images/peacock-feather.png" alt="" aria-hidden="true" />
+      <div class="kicker">With gratitude</div>
+      <div class="leafline" aria-hidden="true">&#10047;</div>
+      <p class="verse">"May the little one arrive healthy, happy &amp; surrounded by love."</p>
+      <p class="body">Your presence will make this celebration even more special for us.</p>
+      <div class="with-love"><small>With love,</small>Monica &amp; Satish Reddy</div>
+    </div>
+  </section>
+</main>
+
+<!-- progress dots -->
+<nav class="dots" id="dots" aria-label="Section navigation"></nav>
+
+<script>
+  // ===== CONFIG: WhatsApp number (country code + number, digits only) =====
+  var RSVP_WHATSAPP_NUMBER = "918897222044"; // +91 8897222044
+
+  // ===== Confetti / petals =====
+  var confettiBox = document.getElementById("confetti");
+  var PETAL_COLORS = ["#3f6b45","#d8b869","#b08a37","#cfe0c9","#e3b0a4","#f6f2e4"];
+  function burstConfetti(count){
+    if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    count = count || 40;
+    for(var i=0;i<count;i++){
+      (function(){
+        var p=document.createElement("span");
+        p.className="petal";
+        var size=6+Math.random()*10;
+        p.style.left=Math.random()*100+"vw";
+        p.style.width=size+"px"; p.style.height=size+"px";
+        p.style.background=PETAL_COLORS[Math.floor(Math.random()*PETAL_COLORS.length)];
+        var dur=4+Math.random()*4;
+        p.style.animationDuration=dur+"s";
+        p.style.animationDelay=(Math.random()*0.6)+"s";
+        confettiBox.appendChild(p);
+        setTimeout(function(){ p.remove(); }, (dur+1)*1000);
+      })();
+    }
+  }
+
+  // ===== Cover open =====
+  var cover = document.getElementById("cover");
+  var openBtn = document.getElementById("openBtn");
+  openBtn.addEventListener("click", function(){
+    cover.classList.add("hide");
+    document.body.classList.add("opened");
+    burstConfetti(60);
+    setTimeout(function(){ cover.style.display="none"; }, 950);
+  });
+
+  // ===== Reveal on scroll =====
+  var reveals = document.querySelectorAll(".reveal");
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add("in"); });
+  }, { threshold:.25 });
+  reveals.forEach(function(r){ io.observe(r); });
+  if(reveals[0]) reveals[0].classList.add("in");
+
+  // ===== Progress dots =====
+  var deck = document.getElementById("deck");
+  var panels = deck.querySelectorAll(".panel");
+  var dotsWrap = document.getElementById("dots");
+  panels.forEach(function(p, i){
+    var d = document.createElement("button");
+    d.className = "d" + (i===0 ? " active" : "");
+    d.setAttribute("aria-label", "Go to section " + (i+1));
+    d.addEventListener("click", function(){ p.scrollIntoView({behavior:"smooth"}); });
+    dotsWrap.appendChild(d);
+  });
+  var dotEls = dotsWrap.querySelectorAll(".d");
+  var dotObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var idx = Array.prototype.indexOf.call(panels, e.target);
+        dotEls.forEach(function(d,i){ d.classList.toggle("active", i===idx); });
+      }
+    });
+  }, { threshold:.6, root:deck });
+  panels.forEach(function(p){ dotObserver.observe(p); });
+
+  // ===== Gender vote (localStorage) =====
+  var KEY_TALLY="seem_tally_v3", KEY_VOTE="seem_vote_v3";
+  var girlBtn=document.getElementById("voteGirl"), boyBtn=document.getElementById("voteBoy");
+  var barG=document.getElementById("barGirl"), barB=document.getElementById("barBoy");
+  var pctG=document.getElementById("pctGirl"), pctB=document.getElementById("pctBoy");
+  var note=document.getElementById("tallyNote");
+
+  function getTally(){ try{ return JSON.parse(localStorage.getItem(KEY_TALLY)) || {girl:0,boy:0}; }catch(e){ return {girl:0,boy:0}; } }
+  function saveTally(t){ try{ localStorage.setItem(KEY_TALLY, JSON.stringify(t)); }catch(e){} }
+  function getVote(){ try{ return localStorage.getItem(KEY_VOTE); }catch(e){ return null; } }
+  function saveVote(v){ try{ localStorage.setItem(KEY_VOTE, v); }catch(e){} }
+
+  function render(){
+    var t=getTally(), total=t.girl+t.boy;
+    var g = total ? Math.round(t.girl/total*100) : 50;
+    var b = 100 - g;
+    if(!total){ g=50; b=50; }
+    barG.style.width=g+"%"; barB.style.width=b+"%";
+    pctG.textContent=g+"%"; pctB.textContent=b+"%";
+    var v=getVote();
+    girlBtn.classList.toggle("sel", v==="girl");
+    boyBtn.classList.toggle("sel", v==="boy");
+    girlBtn.setAttribute("aria-pressed", v==="girl");
+    boyBtn.setAttribute("aria-pressed", v==="boy");
+    note.textContent = total ? (total + (total===1?" guess":" guesses") + " so far · you're " + (v? ("Team "+(v==="girl"?"Girl":"Boy")+"!") : "yet to vote")) : "Be the first to guess!";
+  }
+
+  function castVote(choice){
+    var prev=getVote();
+    if(prev===choice) return;
+    var t=getTally();
+    if(prev==="girl") t.girl=Math.max(0,t.girl-1);
+    if(prev==="boy")  t.boy =Math.max(0,t.boy-1);
+    t[choice]+=1; saveTally(t); saveVote(choice);
+    selectChip(document.getElementById("guessChips"), choice==="girl"?"Team Girl":"Team Boy");
+    render();
+    burstConfetti(30);
+  }
+  girlBtn.addEventListener("click", function(){ castVote("girl"); });
+  boyBtn.addEventListener("click", function(){ castVote("boy"); });
+  render();
+
+  // ===== Chip groups =====
+  function selectChip(group, val){
+    group.querySelectorAll(".chip").forEach(function(c){
+      c.classList.toggle("sel", c.getAttribute("data-val")===val);
+    });
+  }
+  function wireChipGroup(id){
+    var group=document.getElementById(id);
+    group.addEventListener("click", function(e){
+      var chip=e.target.closest(".chip");
+      if(!chip) return;
+      group.querySelectorAll(".chip").forEach(function(c){ c.classList.remove("sel"); });
+      chip.classList.add("sel");
+    });
+  }
+  wireChipGroup("attendChips");
+  wireChipGroup("guessChips");
+  function getSelected(id){ var el=document.querySelector("#"+id+" .chip.sel"); return el?el.getAttribute("data-val"):""; }
+
+  // ===== Guest counter =====
+  var countInput=document.getElementById("guestCount");
+  document.getElementById("minus").addEventListener("click", function(){ countInput.value=Math.max(1,(parseInt(countInput.value,10)||1)-1); });
+  document.getElementById("plus").addEventListener("click", function(){ countInput.value=Math.min(30,(parseInt(countInput.value,10)||1)+1); });
+
+  // ===== Send RSVP =====
+  document.getElementById("sendBtn").addEventListener("click", function(){
+    var name=(document.getElementById("guestName").value||"").trim();
+    var attend=getSelected("attendChips")||"Yes, joyfully!";
+    var count=parseInt(countInput.value,10)||1;
+    var guess=getSelected("guessChips");
+    var noteVal=(document.getElementById("msg").value||"").trim();
+    if(!name){
+      var gn=document.getElementById("guestName");
+      gn.focus(); gn.style.borderColor="#c0392b"; return;
+    }
+    burstConfetti(50);
+    var lines=[];
+    lines.push("*Seemantham RSVP* — Monica & Satish Reddy");
+    lines.push("");
+    lines.push("Name: "+name);
+    lines.push("Attending: "+attend);
+    lines.push("Guests (incl. me): "+count);
+    if(guess) lines.push("My guess: "+guess);
+    if(noteVal) lines.push("Message: "+noteVal);
+    lines.push("");
+    lines.push("See you on Fri, Aug 14th · 7 PM at ANTERA Banquet Hall, Miyapur!");
+    var text=encodeURIComponent(lines.join("\n"));
+    window.open("https://wa.me/"+RSVP_WHATSAPP_NUMBER+"?text="+text, "_blank", "noopener");
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Fonts */
+  --font-sans: var(--font-sans), 'Jost', system-ui, sans-serif;
+  --font-serif: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
+  --font-script: var(--font-script), 'Great Vibes', cursive;
+  --font-script-alt: var(--font-script-alt), 'Dancing Script', cursive;
+  --font-telugu: var(--font-telugu), 'Tiro Telugu', serif;
+
+  /* Invitation palette */
+  --color-forest: #294a2c;
+  --color-forest-deep: #1b331e;
+  --color-forest-mid: #34592f;
+  --color-sage: #cfe0c9;
+  --color-sage-lt: #dfeada;
+  --color-panel: #f6f2e4;
+  --color-panel-2: #fbf8ee;
+  --color-green: #3f6b45;
+  --color-green-ink: #22381f;
+  --color-green-muted: #5b6b5e;
+  --color-gold: #b08a37;
+  --color-gold-lt: #d8b869;
+  --color-pink: #e3b0a4;
+  --color-pink-lt: #f6e5e0;
+  --color-blue: #9fc0cc;
+  --color-blue-lt: #e2eef1;
+
+  /* Semantic tokens */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+:root {
+  color-scheme: light;
+  --background: #1b331e;
+  --foreground: #f6f2e4;
+  --card: #f6f2e4;
+  --card-foreground: #22381f;
+  --popover: #fbf8ee;
+  --popover-foreground: #22381f;
+  --primary: #3f6b45;
+  --primary-foreground: #f6f2e4;
+  --secondary: #dfeada;
+  --secondary-foreground: #294a2c;
+  --muted: #cfe0c9;
+  --muted-foreground: #5b6b5e;
+  --accent: #b08a37;
+  --accent-foreground: #f6f2e4;
+  --destructive: #c0392b;
+  --border: rgba(34, 56, 31, 0.16);
+  --input: rgba(34, 56, 31, 0.16);
+  --ring: #b08a37;
+  --radius: 1rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background:
+      radial-gradient(1100px 700px at 50% -8%, #34592f, transparent 60%),
+      linear-gradient(180deg, #294a2c, #1b331e);
+    background-attachment: fixed;
+    line-height: 1.6;
+  }
+}
+
+/* ===== Reveal on scroll ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ===== Falling petals ===== */
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(540deg);
+    opacity: 0.15;
+  }
+}
+.petal {
+  position: absolute;
+  top: -24px;
+  border-radius: 0 100% 0 100%;
+  opacity: 0.9;
+  will-change: transform;
+  animation: fall linear forwards;
+}
+
+/* ===== Gentle bob for scroll cue ===== */
+@keyframes bob {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 6px);
+  }
+}
+.scroll-cue {
+  animation: bob 1.8s ease-in-out infinite;
+}
+
+/* ===== Cover rise ===== */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.cover-rise {
+  animation: rise 1s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .petal,
+  .scroll-cue,
+  .cover-rise {
+    animation: none !important;
+  }
+}
