@@ -71,7 +71,10 @@ export const viewport: Viewport = {
   themeColor: '#294a2c',
   width: 'device-width',
   initialScale: 1,
+  maximumScale: 5,
   viewportFit: 'cover',
+  // Keep layout usable when the mobile soft keyboard opens
+  interactiveWidget: 'resizes-content',
 }
 
 export default function RootLayout({

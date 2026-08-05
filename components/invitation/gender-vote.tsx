@@ -7,7 +7,9 @@ import { burstConfetti } from '@/lib/confetti'
 
 type Choice = 'girl' | 'boy'
 
-export function GenderVote() {
+const CELEBRATE_MS = 4800
+
+export function GenderVote({ onDone }: { onDone?: () => void }) {
   const [guess, setGuess] = useState<Choice | null>(null)
   const [babyName, setBabyName] = useState('')
   const [meaning, setMeaning] = useState('')
@@ -18,12 +20,22 @@ export function GenderVote() {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const nameRef = useRef<HTMLInputElement>(null)
   const submitterRef = useRef<HTMLInputElement>(null)
+  const onDoneRef = useRef(onDone)
+  onDoneRef.current = onDone
 
   useEffect(() => {
     return () => {
       if (closeTimer.current) clearTimeout(closeTimer.current)
     }
   }, [])
+
+  /** Keep focused fields visible above the mobile soft keyboard */
+  function keepInView(el: HTMLElement | null) {
+    if (!el) return
+    window.setTimeout(() => {
+      el.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    }, 280)
+  }
 
   function pick(choice: Choice) {
     if (guess === choice) return
@@ -70,22 +82,32 @@ export function GenderVote() {
     setMeaning('')
     setSubmitter('')
     setErrors({})
+    // Dismiss mobile keyboard so the thank-you overlay isn't pushed up
+    if (typeof document !== 'undefined') {
+      ;(document.activeElement as HTMLElement | null)?.blur?.()
+    }
 
     if (closeTimer.current) clearTimeout(closeTimer.current)
     closeTimer.current = setTimeout(() => {
       setCelebrate(false)
       setRevealedName('')
-    }, 5200)
+      // Wait a frame so overlay unmount doesn't fight scroll-snap
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          onDoneRef.current?.()
+        })
+      })
+    }, CELEBRATE_MS)
   }
 
   return (
-    <div className="relative z-10 mt-3 text-left">
+    <div className="relative z-10 mt-2 text-left sm:mt-3">
       {/* Q1 — Boy or Girl */}
       <div>
-        <span className="mb-2 block text-[11px] uppercase tracking-[0.14em] text-green">
+        <span className="mb-1.5 block text-[10px] uppercase tracking-[0.14em] text-green sm:mb-2 sm:text-[11px]">
           1 · Boy or Girl?
         </span>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
           <GuessButton
             label="Girl"
             emoji="👧"
@@ -109,42 +131,49 @@ export function GenderVote() {
       </div>
 
       {/* Q2 — Name suggestion + meaning */}
-      <div className="mt-4">
-        <span className="mb-2 block text-[11px] uppercase tracking-[0.14em] text-green">
-          2 · A name for the little one?
+      <div className="mt-3 sm:mt-4">
+        <span className="mb-1.5 block text-[10px] uppercase tracking-[0.14em] text-green sm:mb-2 sm:text-[11px]">
+          2 · Suggested name
         </span>
         <input
           ref={nameRef}
           type="text"
+          enterKeyHint="next"
+          autoCapitalize="words"
+          autoCorrect="off"
           value={babyName}
+          onFocus={(e) => keepInView(e.currentTarget)}
           onChange={(e) => {
             setBabyName(e.target.value)
             if (errors.babyName) setErrors((er) => ({ ...er, babyName: false }))
           }}
-          placeholder="Suggested name"
-          className={`w-full rounded-xl border bg-panel-2 px-3.5 py-2.5 text-base text-forest outline-none transition-colors focus:border-green ${
+          placeholder="A name you love"
+          className={`w-full rounded-xl border bg-panel-2 px-3 py-2.5 text-base text-forest outline-none transition-colors focus:border-green sm:px-3.5 sm:py-3 ${
             errors.babyName ? 'border-destructive' : 'border-border'
           }`}
         />
         <input
           type="text"
+          enterKeyHint="next"
+          autoCapitalize="sentences"
           value={meaning}
+          onFocus={(e) => keepInView(e.currentTarget)}
           onChange={(e) => {
             setMeaning(e.target.value)
             if (errors.meaning) setErrors((er) => ({ ...er, meaning: false }))
           }}
           placeholder="What does it mean?"
-          className={`mt-2 w-full rounded-xl border bg-panel-2 px-3.5 py-2.5 text-base text-forest outline-none transition-colors focus:border-green ${
+          className={`mt-2 w-full rounded-xl border bg-panel-2 px-3 py-2.5 text-base text-forest outline-none transition-colors focus:border-green sm:px-3.5 sm:py-3 ${
             errors.meaning ? 'border-destructive' : 'border-border'
           }`}
         />
       </div>
 
       {/* Q3 — Submitter */}
-      <div className="mt-4">
+      <div className="mt-3 sm:mt-4">
         <label
           htmlFor="funSubmitter"
-          className="mb-2 block text-[11px] uppercase tracking-[0.14em] text-green"
+          className="mb-1.5 block text-[10px] uppercase tracking-[0.14em] text-green sm:mb-2 sm:text-[11px]"
         >
           3 · Your name
         </label>
@@ -152,15 +181,18 @@ export function GenderVote() {
           id="funSubmitter"
           ref={submitterRef}
           type="text"
+          enterKeyHint="send"
           autoComplete="name"
+          autoCapitalize="words"
           value={submitter}
+          onFocus={(e) => keepInView(e.currentTarget)}
           onChange={(e) => {
             setSubmitter(e.target.value)
             if (errors.submitter)
               setErrors((er) => ({ ...er, submitter: false }))
           }}
-          placeholder="So we know who suggested it"
-          className={`w-full rounded-xl border bg-panel-2 px-3.5 py-2.5 text-base text-forest outline-none transition-colors focus:border-green ${
+          placeholder="So we know who guessed"
+          className={`w-full rounded-xl border bg-panel-2 px-3 py-2.5 text-base text-forest outline-none transition-colors focus:border-green sm:px-3.5 sm:py-3 ${
             errors.submitter ? 'border-destructive' : 'border-border'
           }`}
         />
@@ -169,13 +201,13 @@ export function GenderVote() {
       <button
         type="button"
         onClick={send}
-        className="mt-5 flex w-full items-center justify-center gap-2.5 rounded-2xl bg-green px-4 py-3.5 text-sm font-medium uppercase tracking-[0.1em] text-panel shadow-lg transition-transform hover:-translate-y-0.5"
+        className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-green px-4 py-3 text-sm font-medium uppercase tracking-[0.1em] text-panel shadow-lg transition-transform hover:-translate-y-0.5 active:translate-y-0 sm:mt-5 sm:gap-2.5 sm:py-3.5"
       >
         <Send className="h-[18px] w-[18px]" />
         Send your wish
       </button>
-      <p className="mt-2.5 text-center text-[11px] text-green-muted">
-        Your guess is saved quietly in the background.
+      <p className="mt-2 text-center text-[10.5px] text-green-muted sm:mt-2.5 sm:text-[11px]">
+        Saved quietly in the background.
       </p>
 
       {celebrate && <BabyThanksOverlay name={revealedName} />}
@@ -187,22 +219,27 @@ function BabyThanksOverlay({ name }: { name: string }) {
   const len = name.length
   const nameClass =
     len > 22
-      ? 'text-[clamp(1.35rem,5vw,1.85rem)]'
+      ? 'text-[clamp(1.25rem,4.5vw,1.75rem)]'
       : len > 14
-        ? 'text-[clamp(1.7rem,6vw,2.35rem)]'
+        ? 'text-[clamp(1.5rem,5.5vw,2.2rem)]'
         : len > 8
-          ? 'text-[clamp(2rem,7vw,2.85rem)]'
-          : 'text-[clamp(2.4rem,8vw,3.25rem)]'
+          ? 'text-[clamp(1.85rem,6.5vw,2.7rem)]'
+          : 'text-[clamp(2.15rem,7.5vw,3.1rem)]'
 
   return (
     <div
       role="status"
       aria-live="polite"
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-forest-deep/55 p-4 backdrop-blur-[2px]"
+      className="fixed left-0 right-0 z-[70] flex items-center justify-center bg-forest-deep/55 p-3 sm:p-4"
+      style={{
+        top: 'var(--app-top, 0px)',
+        height: 'var(--app-height, 100dvh)',
+        paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0px))',
+        paddingBottom: 'max(0.75rem, env(safe-area-inset-bottom, 0px))',
+      }}
     >
-      <div className="smile-pop relative w-[min(96vw,480px)] overflow-hidden rounded-3xl bg-panel-2 shadow-[0_22px_60px_-18px_rgba(15,32,18,0.65)] outline outline-1 outline-offset-4 outline-gold/50">
-        {/* Scene — baby looking toward the reveal below */}
-        <div className="reveal-stage relative aspect-[1024/558] w-full overflow-hidden">
+      <div className="smile-pop relative max-h-full w-[min(94vw,440px)] overflow-y-auto overscroll-contain rounded-2xl bg-panel-2 shadow-[0_22px_60px_-18px_rgba(15,32,18,0.65)] sm:rounded-3xl sm:outline sm:outline-1 sm:outline-offset-4 sm:outline-gold/50">
+        <div className="reveal-stage relative aspect-[1024/558] max-h-[28vh] w-full overflow-hidden sm:max-h-[36vh]">
           <div className="reveal-scene absolute inset-0">
             <Image
               src="/images/name-reveal-scene.png"
@@ -210,34 +247,39 @@ function BabyThanksOverlay({ name }: { name: string }) {
               fill
               priority
               className="reveal-scene-img object-cover object-[70%_55%]"
-              sizes="480px"
+              sizes="440px"
             />
           </div>
           <div className="reveal-grade pointer-events-none absolute inset-0" />
         </div>
 
-        {/* Unveil sits under the art, not on top of it */}
-        <div className="relative border-t border-gold/30 bg-sage-lt/40 px-4 py-5">
-          <div className="unveil-plaque relative mx-auto w-full overflow-hidden rounded-2xl border border-gold/45 bg-panel-2 px-4 py-6 text-center shadow-[0_12px_28px_-14px_rgba(15,32,18,0.4)]">
-            <div className="text-[10px] font-medium uppercase tracking-[0.26em] text-green">
-              A name for the little one
+        <div className="relative border-t border-gold/30 bg-sage-lt/40 px-3 py-3.5 sm:px-4 sm:py-5">
+          <div className="unveil-plaque relative mx-auto w-full overflow-hidden rounded-xl border border-gold/45 bg-panel-2 px-3 py-4 text-center shadow-[0_12px_28px_-14px_rgba(15,32,18,0.4)] sm:rounded-2xl sm:px-4 sm:py-6">
+            <div className="text-[9.5px] font-medium uppercase tracking-[0.22em] text-green sm:text-[10px] sm:tracking-[0.26em]">
+              Your name wish
             </div>
             <p
-              className={`name-unveil relative z-[1] mt-2 font-script leading-tight text-forest text-pretty ${nameClass}`}
+              className={`name-unveil relative z-[1] mt-1.5 font-script leading-tight text-forest text-pretty sm:mt-2 ${nameClass}`}
             >
               {name}
             </p>
-            <p className="relative z-[1] mt-2 font-serif text-base italic text-green">
+            <p className="relative z-[1] mt-1.5 font-serif text-[15px] italic text-green sm:mt-2 sm:text-base">
               Thank you!
             </p>
 
-            <div className="unveil-curtain unveil-curtain-left" aria-hidden="true" />
-            <div className="unveil-curtain unveil-curtain-right" aria-hidden="true" />
+            <div
+              className="unveil-curtain unveil-curtain-left"
+              aria-hidden="true"
+            />
+            <div
+              className="unveil-curtain unveil-curtain-right"
+              aria-hidden="true"
+            />
           </div>
         </div>
 
-        <div className="border-t border-gold/25 bg-sage-lt/70 px-5 py-3.5 text-center">
-          <p className="font-serif text-[14px] italic text-green">
+        <div className="border-t border-gold/25 bg-sage-lt/70 px-4 py-3 text-center sm:px-5 sm:py-3.5">
+          <p className="font-serif text-[13px] italic text-green sm:text-[14px]">
             Your wish has been received with love.
           </p>
         </div>
@@ -269,16 +311,16 @@ function GuessButton({
       type="button"
       aria-pressed={selected}
       onClick={onClick}
-      className={`rounded-2xl border px-3 py-4 text-center transition-all duration-200 hover:-translate-y-0.5 ${
+      className={`rounded-xl border px-2.5 py-3 text-center transition-all duration-200 hover:-translate-y-0.5 sm:rounded-2xl sm:px-3 sm:py-4 ${
         selected
           ? selectedClass
           : 'border-border bg-panel-2 hover:border-green/40'
       }`}
     >
-      <div className="text-3xl leading-none" aria-hidden="true">
+      <div className="text-2xl leading-none sm:text-3xl" aria-hidden="true">
         {emoji}
       </div>
-      <div className="mt-1.5 font-serif text-lg font-bold text-forest">
+      <div className="mt-1 font-serif text-base font-bold text-forest sm:mt-1.5 sm:text-lg">
         {label}
       </div>
     </button>

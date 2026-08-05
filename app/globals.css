@@ -79,19 +79,219 @@
   --input: rgba(34, 56, 31, 0.16);
   --ring: #b08a37;
   --radius: 1rem;
+  /* JS (useMobileViewport) overrides these to match the real visible viewport */
+  --app-height: 100dvh;
+  --app-top: 0px;
+  /* Gold frame insets — deck/content share these so centering is inside the frame */
+  --frame-inset-t: max(0.55rem, env(safe-area-inset-top, 0px));
+  --frame-inset-r: max(0.55rem, env(safe-area-inset-right, 0px));
+  --frame-inset-b: max(0.55rem, env(safe-area-inset-bottom, 0px));
+  --frame-inset-l: max(0.55rem, env(safe-area-inset-left, 0px));
+}
+
+@supports not (height: 100dvh) {
+  :root {
+    --app-height: 100vh;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --frame-inset-t: 0.75rem;
+    --frame-inset-r: 0.75rem;
+    --frame-inset-b: 0.75rem;
+    --frame-inset-l: 0.75rem;
+  }
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+  html {
+    height: 100%;
+    height: -webkit-fill-available;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  html,
+  body {
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
   body {
     @apply bg-background text-foreground;
+    min-height: 100%;
+    min-height: -webkit-fill-available;
+    min-height: 100dvh;
     background:
       radial-gradient(1100px 700px at 50% -8%, #34592f, transparent 60%),
       linear-gradient(180deg, #294a2c, #1b331e);
-    background-attachment: fixed;
     line-height: 1.6;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: pan-y;
+  }
+
+  button,
+  a,
+  [role='button'] {
+    touch-action: manipulation;
+  }
+
+  /* Avoid iOS zoom-on-focus for form fields */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* ===== Invitation shell / frame (mobile-browser safe) ===== */
+.invitation-shell {
+  position: fixed;
+  top: var(--app-top, 0px);
+  left: 0;
+  width: 100%;
+  height: var(--app-height, 100dvh);
+  overflow: hidden;
+}
+
+.invitation-frame {
+  position: absolute;
+  inset: max(0.55rem, env(safe-area-inset-top, 0px))
+    max(0.55rem, env(safe-area-inset-right, 0px))
+    max(0.55rem, env(safe-area-inset-bottom, 0px))
+    max(0.55rem, env(safe-area-inset-left, 0px));
+}
+
+@media (min-width: 640px) {
+  .invitation-frame {
+    inset: 0.75rem;
+  }
+}
+
+.invitation-cover {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(1rem, calc(env(safe-area-inset-top, 0px) + 1rem))
+    max(1rem, calc(env(safe-area-inset-right, 0px) + 1rem))
+    max(1rem, calc(env(safe-area-inset-bottom, 0px) + 1rem))
+    max(1rem, calc(env(safe-area-inset-left, 0px) + 1rem));
+  -webkit-overflow-scrolling: touch;
+}
+
+.invitation-panel {
+  box-sizing: border-box;
+  height: var(--app-height, 100dvh);
+  min-height: var(--app-height, 100dvh);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.invitation-panel--tall {
+  height: auto;
+  justify-content: flex-start;
+}
+
+.invitation-panel-inner {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: max(1.25rem, calc(env(safe-area-inset-top, 0px) + 1rem))
+    max(1rem, calc(env(safe-area-inset-right, 0px) + 1.75rem))
+    max(1.25rem, calc(env(safe-area-inset-bottom, 0px) + 1rem))
+    max(1rem, calc(env(safe-area-inset-left, 0px) + 1rem));
+}
+
+.invitation-panel--tall .invitation-panel-inner {
+  justify-content: flex-start;
+}
+
+/* Extra top room so the close button doesn't sit on the guess form title */
+.guess-card {
+  margin-top: 0.35rem;
+}
+
+@media (max-width: 639px) {
+  .invitation-panel--tall .invitation-panel-inner {
+    padding-top: max(1.25rem, calc(env(safe-area-inset-top, 0px) + 1rem));
+    padding-bottom: max(1.25rem, calc(env(safe-area-inset-bottom, 0px) + 1rem));
+  }
+}
+
+/* Scroll cue: span the gold frame's left/right insets, then center inside */
+.invitation-scroll-cue {
+  position: absolute;
+  z-index: 47;
+  left: max(0.55rem, env(safe-area-inset-left, 0px));
+  right: max(0.55rem, env(safe-area-inset-right, 0px));
+  bottom: max(1.1rem, calc(env(safe-area-inset-bottom, 0px) + 0.85rem));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  pointer-events: none;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(246, 242, 228, 0.85);
+}
+
+@media (min-width: 640px) {
+  .invitation-scroll-cue {
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 1.35rem;
+    font-size: 11px;
+  }
+}
+
+/* Invisible strip above panel 1 — scroll into it to return to cover */
+.invitation-cover-exit {
+  height: 28vh;
+  width: 100%;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.invitation-dots {
+  position: absolute;
+  top: 50%;
+  right: max(0.55rem, calc(env(safe-area-inset-right, 0px) + 0.35rem));
+  transform: translateY(-50%);
+}
+
+@media (min-width: 640px) {
+  .invitation-dots {
+    right: 1rem;
+  }
+}
+
+.invitation-deck {
+  position: relative;
+  z-index: 10;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: y mandatory;
+  scroll-padding: 0;
+  touch-action: pan-y;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .invitation-deck {
+    scroll-behavior: smooth;
   }
 }
 
@@ -132,10 +332,10 @@
 @keyframes bob {
   0%,
   100% {
-    transform: translate(-50%, 0);
+    transform: translateY(0);
   }
   50% {
-    transform: translate(-50%, 6px);
+    transform: translateY(6px);
   }
 }
 .scroll-cue {
